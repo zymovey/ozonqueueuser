@@ -53,4 +53,9 @@ public class Courier {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public Courier(int id, int position) {
+        this.id = id;
+        this.position = position;
+    }
 }

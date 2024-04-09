@@ -4,11 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.zymovey.ozonqueueuser.dialog.ExitDialogFragment;
+import com.zymovey.ozonqueueuser.dialog.OnQueueDialogFragment;
+import com.zymovey.ozonqueueuser.dialog.PauseDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -119,6 +125,57 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void onQueue(){
+
+    }
+    public void pause(){
+
+    }
+    public void exit(){
+
+        Courier courier = new Courier(4, 0);
+
+       // couriersService = retro.create(CouriersService.class);
+        Call<Courier> arrayListCall = couriersService.updateItem(4, courier);
+
+        arrayListCall.enqueue(new Callback<Courier>() {
+            @Override
+            public void onResponse(Call<Courier> call, Response<Courier> response) {
+                Toast toast3 = Toast.makeText(MainActivity.this, call.request() + " Зашел в onResponse" , Toast.LENGTH_SHORT);
+                TextView v = (TextView) toast3.getView().findViewById(android.R.id.message);
+                v.setTextColor(Color.RED);
+                v.setTextSize(25);
+                toast3.show();
+            }
+
+            @Override
+            public void onFailure(Call<Courier> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, UserSettingsActivity.class);
+        startActivity(intent);
+    }
+
+    public void showOnQueueDialog(View v) {
+
+        OnQueueDialogFragment onQueueDialog = new OnQueueDialogFragment();
+        onQueueDialog.show(getSupportFragmentManager(), "queue");
+    }
+    public void showPauseDialog(View v) {
+
+        PauseDialogFragment pauseDialog = new PauseDialogFragment();
+        pauseDialog.show(getSupportFragmentManager(), "pause");
+    }
+    public void showExitDialog(View v) {
+
+        ExitDialogFragment exitDialog = new ExitDialogFragment();
+        exitDialog.show(getSupportFragmentManager(), "exit");
     }
 }
 
