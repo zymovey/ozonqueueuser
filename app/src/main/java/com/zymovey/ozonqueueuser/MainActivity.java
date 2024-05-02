@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static Retrofit retro;
 
     RecyclerView recyclerView;
+    TextView v;
     ArrayList<Courier> dataArrayList;
     private CouriersService couriersService;
     private Adapter adapter;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.rec_view);
-
+        this.v = findViewById(android.R.id.message);
 // Инициализируем лист
         dataArrayList = new ArrayList<>();
         // adapter = new Adapter(dataArrayList);
@@ -111,10 +112,25 @@ public class MainActivity extends AppCompatActivity {
 
                     //тост количество людей в очереди
                     Toast toast = Toast.makeText(MainActivity.this, queueArrayList.size() + " в очереди", Toast.LENGTH_SHORT);
-                    TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                    v.setTextColor(Color.RED);
-                    v.setTextSize(25);
-                    toast.show();
+
+                View view;
+                TextView text;
+
+
+                view = toast.getView();
+                text = (TextView) view.findViewById(android.R.id.message);
+                text.setTextColor(getResources().getColor(R.color.red));
+                text.setShadowLayer(0,0,0,0);
+                view.setBackgroundResource(R.color.white);
+                toast.show();
+
+               // TextView v = (TextView)toast.getView().findViewById(android.R.id.message);
+                 //TextView v = (TextView)toast.getView().findViewById(android.R.id.message);
+
+                //    v.setTextColor(Color.RED);
+                  //  v.setTextSize(25);
+
+                  //  toast.show();
 
             }
 
@@ -138,9 +154,9 @@ public class MainActivity extends AppCompatActivity {
         Courier courier = new Courier(4, 0);
 
        // couriersService = retro.create(CouriersService.class);
-        Call<Courier> arrayListCall = couriersService.updateItem(4, courier);
+        Call<Courier> call = couriersService.updateItem(4, courier);
 
-        arrayListCall.enqueue(new Callback<Courier>() {
+        call.enqueue(new Callback<Courier>() {
             @Override
             public void onResponse(Call<Courier> call, Response<Courier> response) {
                 Toast toast3 = Toast.makeText(MainActivity.this, call.request() + " Зашел в onResponse" , Toast.LENGTH_SHORT);
@@ -148,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 v.setTextColor(Color.RED);
                 v.setTextSize(25);
                 toast3.show();
+                Log.d("zimov", "request" + call.request()+"Responsez = " + response);
             }
 
             @Override

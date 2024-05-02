@@ -25,7 +25,7 @@
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="4dp"
             app:shapeAppearanceOverlay="@style/imageViewRounded" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/image"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="4dp"
             android:textSize="16sp"
             android:textStyle="bold" />
 
